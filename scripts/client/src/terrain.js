@@ -7,6 +7,12 @@ function load3D(width, height, extent)
 				document.getElementById( 'map3D' ).innerHTML = "";
 
 			}
+			console.log(extent._northEast.lat);
+			console.log(extent._southWest.lng);
+			var extentString = extent._southWest.lng + "," 
+			+ extent._southWest.lat + "," 
+			+ extent._northEast.lng + "," 
+			+ extent._northEast.lat;
 
 			var container, stats;
 
@@ -39,23 +45,23 @@ function load3D(width, height, extent)
 				controls.userPanSpeed = 100;
 
 
-				controls.center.y = 500;
-				camera.position.y =  controls.center.y + 2000;
-				camera.position.x = 2000;
-
-				var imageUrl = "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/export?bbox=-2.217566130859157E7%2C-275474.05352292303%2C2.217566130859157E7%2C1.702429650771373E7&bboxSR=&layers=&layerDefs=&size=" + window.innerWidth +"%2C" + window.innerHeight +"&imageSR=&format=jpg&transparent=false&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image";
+				controls.center.y = 50;
+				camera.position.y =  controls.center.y + 200;
+				camera.position.x = height;
+				camera.position.z = width / 2;
+				var imageUrl = "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/export?bbox="+extentString+"&bboxSR=4326&layers=&layerDefs=&size=" + window.innerWidth +"%2C" + window.innerHeight +"&imageSR=&format=jpg&transparent=false&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image";
 				//var imageUrl = 'http://localhost:1337/content/images/surface.jpg';
 
-				var geometry = new THREE.PlaneBufferGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
-				var geometry2 = new THREE.PlaneBufferGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
-				var geometry3 = new THREE.PlaneBufferGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
+				var geometry = new THREE.PlaneBufferGeometry( width, height, worldWidth - 1, worldDepth - 1 );
+				var geometry2 = new THREE.PlaneBufferGeometry( width, height, worldWidth - 1, worldDepth - 1 );
+				var geometry3 = new THREE.PlaneBufferGeometry( width, height, worldWidth - 1, worldDepth - 1 );
 				geometry.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 				geometry2.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 				geometry3.applyMatrix( new THREE.Matrix4().makeRotationX( - Math.PI / 2 ) );
 
 		        for ( var j = 0; j < geometry2.attributes.position.array.length; j +=3 ) {
-		          geometry2.attributes.position.array[ j+1 ] = geometry2.attributes.position.array[ j+1 ]- 2000;
-		          geometry3.attributes.position.array[ j+1 ] = geometry3.attributes.position.array[ j+1 ] - 5;
+		          geometry2.attributes.position.array[ j+1 ] = geometry2.attributes.position.array[ j+1 ]- 200;
+		          geometry3.attributes.position.array[ j+1 ] = geometry3.attributes.position.array[ j+1 ] - 2;
 		        }
 				var helperTerrainGrid = new THREE.Mesh(
 				geometry2, 
@@ -94,6 +100,9 @@ function load3D(width, height, extent)
 				container.innerHTML = "";
 				container.appendChild( renderer.domElement );
 
+        
+		        var ambientLight = new THREE.AmbientLight(0xbbbbbb);
+		        scene.add(ambientLight);
 				window.addEventListener( 'resize', onWindowResize, false );
 
 			}
