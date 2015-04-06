@@ -46,9 +46,9 @@ function load3D(width, height, extent)
 
 
 				controls.center.y = 50;
-				camera.position.y =  controls.center.y + 200;
-				camera.position.x = height;
-				camera.position.z = width / 2;
+				camera.position.y =  controls.center.y + 800;
+				camera.position.x = 0;
+				camera.position.z = 500;
 				var imageUrl = "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/export?bbox="+extentString+"&bboxSR=4326&layers=&layerDefs=&size=" + window.innerWidth +"%2C" + window.innerHeight +"&imageSR=&format=jpg&transparent=false&dpi=&time=&layerTimeOptions=&dynamicLayers=&gdbVersion=&mapScale=&f=image";
 				//var imageUrl = 'http://localhost:1337/content/images/surface.jpg';
 
