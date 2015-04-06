@@ -87,7 +87,7 @@ function load3D(width, height, extent)
 		        var material = new THREE.MeshLambertMaterial({
 		          	map: THREE.ImageUtils.loadTexture(imageUrl),
 					transparent: true,
-					opacity: 0.8 
+					opacity: 0.95 
 		        });
 		        mesh = new THREE.Mesh( geometry, material );
 				scene.add(mesh);
